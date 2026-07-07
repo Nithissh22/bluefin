@@ -1,6 +1,9 @@
 export const fetchApi = async (endpoint: string, options: RequestInit = {}) => {
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+  const defaultUrl = process.env.NODE_ENV === "production"
+    ? "https://bluefin-backend.onrender.com/api/v1"
+    : "http://localhost:8000/api/v1";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || defaultUrl;
 
   const headers = new Headers(options.headers);
   if (token) {
