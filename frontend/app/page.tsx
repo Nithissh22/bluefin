@@ -1,131 +1,136 @@
 "use client";
 import Link from "next/link";
-import { Users, UserCheck, ShieldCheck, ArrowRight } from "lucide-react";
+import { Users, UserCheck, ShieldCheck, ArrowRight, Activity, Beaker } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Home() {
     const portals = [
         {
             title: "Client Portal",
             icon: Users,
-            tag: "Access Level: 10 Users",
+            description: "Access procurement ledgers, track priority orders, and manage fulfillment.",
             link: "/login?role=client",
-            features: [
-                "Secure Client Authentication",
-                "Product & Category Catalog",
-                "Place Online Requisitions",
-                "Requisition History & Tracking",
-                "Automated Notifications"
-            ]
+            color: "bg-blue-500/10 text-blue-600 border-blue-500/20"
         },
         {
             title: "Staff Portal",
             icon: UserCheck,
-            tag: "Access Level: 10 Users",
+            description: "Logistics command center. Update fulfillment status and packing metrics.",
             link: "/login?role=staff",
-            features: [
-                "Secure Staff Authentication",
-                "View Assigned Requisitions",
-                "Update Fulfillment Status",
-                "Packing & Shipping Logistics",
-                "Delivery Confirmation Logging"
-            ]
+            color: "bg-teal-500/10 text-teal-600 border-teal-500/20"
         },
         {
             title: "Admin Panel",
             icon: ShieldCheck,
-            tag: "Access Level: 2 Users",
+            description: "Global root access. Oversee user governance and catalog intelligence.",
             link: "/login?role=admin",
-            features: [
-                "Secure Admin Authentication",
-                "Global Dashboard & Analytics",
-                "User & Access Management",
-                "Product Database Control",
-                "Requisition Assignment"
-            ]
+            color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
         }
     ];
 
     return (
-        <div className="min-h-screen bg-background relative flex flex-col items-center">
+        <div className="min-h-screen bg-background flex flex-col md:flex-row overflow-hidden font-sans">
             
-            {/* Top Navy Block with Texture */}
-            <div className="absolute top-0 left-0 w-full h-[55vh] bg-primary overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.03]" style={{
-                    backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-                    backgroundSize: `24px 24px`
-                }}></div>
-                <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-primary to-transparent opacity-50 pointer-events-none"></div>
-            </div>
-
-            <div className="w-full max-w-6xl px-6 flex flex-col z-10 pt-28 pb-24">
+            {/* Left Content Half */}
+            <div className="w-full md:w-[55%] flex flex-col justify-center px-8 md:px-20 py-16 md:py-24 z-10 bg-background/80 backdrop-blur-xl border-r border-border/50 relative">
                 
-                {/* Hero Section */}
-                <div className="mb-16 flex flex-col items-center text-center">
-                    <div className="text-[11px] font-bold tracking-[0.2em] text-primary-foreground/60 uppercase mb-8 border border-primary-foreground/20 px-3 py-1.5 rounded-sm">
-                        System Access
+                {/* Brand Header */}
+                <div className="absolute top-8 left-8 md:left-12 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+                        <Beaker className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                        <h2 className="font-bold text-xl tracking-tight leading-none text-foreground">Bluefin</h2>
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-primary font-bold">Bio Science</span>
+                    </div>
+                </div>
+
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="max-w-xl mt-12 md:mt-0"
+                >
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-semibold uppercase tracking-wider mb-8">
+                        <Activity className="w-3.5 h-3.5" />
+                        System Active // v2.0
                     </div>
                     
-                    <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-primary-foreground mb-6 drop-shadow-sm">
-                        Select your portal
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-[1.1]">
+                        Precision <br/><span className="text-primary">Procurement.</span>
                     </h1>
                     
-                    <p className="text-base md:text-lg text-primary-foreground/80 max-w-2xl leading-relaxed font-light">
-                        Identify your assigned role below to access the corresponding dashboard and operational features.
+                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light mb-12 max-w-lg">
+                        The unified intelligent platform for clinical supply chain management and automated laboratory requisitions.
                     </p>
-                </div>
 
-                {/* 3-Column Card Grid Overlapping the background */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-8">
-                    {portals.map((portal, i) => (
-                        <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
-                            key={i}
-                        >
-                            <Link 
-                                href={portal.link} 
-                                className="group flex flex-col h-full bg-card hover:bg-card border-x border-b border-border shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-primary transition-all duration-300 rounded-lg overflow-hidden relative transform hover:-translate-y-1"
-                                aria-label={`Access ${portal.title}`}
+                    <div className="flex flex-col gap-4 w-full">
+                        <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-2">Select Authenticated Environment</h3>
+                        
+                        {portals.map((portal, i) => (
+                            <motion.div 
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.3 + (i * 0.1), duration: 0.5 }}
+                                key={i}
                             >
-                                {/* Accent Top Border */}
-                                <div className="absolute top-0 left-0 w-full h-1.5 bg-accent group-hover:bg-accent/80 transition-colors"></div>
-
-                                <div className="p-8 flex-1 flex flex-col mt-2">
-                                    <div className="mb-8 flex items-center justify-between">
-                                        <div className="w-12 h-12 rounded bg-muted flex items-center justify-center border border-border/60 group-hover:border-accent/40 transition-colors">
-                                            <portal.icon className="w-5 h-5 text-accent" strokeWidth={2} />
-                                        </div>
-                                        <div className="text-xs font-mono text-muted-foreground bg-muted/50 px-2.5 py-1 rounded-sm border border-border/40">
-                                            {portal.tag.replace("Access Level: ", "")}
-                                        </div>
+                                <Link 
+                                    href={portal.link} 
+                                    className="group flex items-center gap-5 p-5 rounded-2xl bg-card border border-border/60 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-primary/30 transition-all duration-300 relative overflow-hidden"
+                                >
+                                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 border ${portal.color}`}>
+                                        <portal.icon className="w-6 h-6" strokeWidth={1.5} />
                                     </div>
-
-                                    <h3 className="text-2xl font-semibold text-foreground tracking-tight mb-6">
-                                        {portal.title}
-                                    </h3>
-                                    
-                                    <div className="flex-1">
-                                        <ul className="space-y-3.5">
-                                            {portal.features.map((feature, j) => (
-                                                <li key={j} className="flex items-start gap-3">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-accent/60 transition-colors mt-2 flex-shrink-0"></div>
-                                                    <span className="text-sm text-muted-foreground leading-relaxed font-medium">{feature}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors truncate">
+                                            {portal.title}
+                                        </h3>
+                                        <p className="text-sm text-muted-foreground truncate font-medium mt-0.5">
+                                            {portal.description}
+                                        </p>
                                     </div>
-                                    
-                                    <div className="mt-10 flex items-center text-sm font-bold text-foreground group-hover:text-accent transition-colors">
-                                        Access Portal <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shrink-0">
+                                        <ArrowRight className="w-5 h-5" />
                                     </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    ))}
-                </div>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
             </div>
+
+            {/* Right Graphic Half */}
+            <div className="hidden md:flex w-[45%] relative bg-[#020814] items-center justify-center overflow-hidden">
+                <Image 
+                    src="/biotech_hero.png" 
+                    alt="Biotechnology Visualization" 
+                    fill
+                    priority
+                    className="object-cover opacity-90 mix-blend-lighten"
+                />
+                
+                {/* Subtle Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent opacity-30"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020814] via-transparent to-[#020814] opacity-50"></div>
+                
+                {/* Floating Metric Badges for SaaS feel */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="absolute bottom-12 right-12 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex items-center gap-4 shadow-2xl"
+                >
+                    <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+                        <Activity className="w-6 h-6 text-emerald-400" />
+                    </div>
+                    <div>
+                        <div className="text-white font-bold text-xl">99.99%</div>
+                        <div className="text-white/60 text-xs font-mono uppercase tracking-widest">Uptime SLA</div>
+                    </div>
+                </motion.div>
+            </div>
+
         </div>
     );
 }

@@ -4,6 +4,7 @@ import { useAuth } from "@/lib/auth";
 import { fetchApi } from "@/lib/api";
 import { ArrowRight, LockKeyhole, Mail, User } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Login() {
     const { login } = useAuth();
@@ -84,24 +85,33 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex w-full bg-background font-sans text-foreground selection:bg-primary/20 selection:text-primary">
-            {/* Left Side - Branding */}
-            <div className="hidden lg:flex w-1/2 bg-card relative overflow-hidden flex-col justify-between p-12 border-r border-border">
-                <div className="relative z-10 flex items-center gap-3 text-foreground">
-                    <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center font-bold text-xl text-primary border border-border">B</div>
-                    <span className="text-xl font-medium tracking-tight">Bluefin Bio Science</span>
+            {/* Left Side - Branding / Graphic */}
+            <div className="hidden lg:flex w-1/2 relative overflow-hidden flex-col justify-between p-12">
+                <Image 
+                    src="/clinical_login.png" 
+                    alt="Clinical Login Abstract" 
+                    fill
+                    priority
+                    className="object-cover"
+                />
+                <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020814]/80 via-transparent to-transparent"></div>
+                
+                <div className="relative z-10 flex items-center gap-3 text-white">
+                    <div className="w-10 h-10 rounded bg-white/20 backdrop-blur-md flex items-center justify-center font-bold text-xl text-white border border-white/30">B</div>
+                    <span className="text-xl font-medium tracking-tight text-white drop-shadow-md">Bluefin Bio Science</span>
                 </div>
                 
-                <div className="relative z-10 max-w-md">
-                    <h1 className="text-4xl font-medium text-foreground mb-6 leading-tight">
+                <div className="relative z-10 max-w-md mt-auto">
+                    <div className="inline-block px-3 py-1 mb-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-xs font-mono uppercase tracking-widest shadow-lg">
+                        System Auth // v2.0
+                    </div>
+                    <h1 className="text-4xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
                         {portalName}
                     </h1>
-                    <p className="text-muted-foreground text-lg leading-relaxed font-light">
+                    <p className="text-white/80 text-lg leading-relaxed font-light drop-shadow-md">
                         Securely authenticate to access procurement ledgers, manage fulfillment logistics, and track high-priority orders.
                     </p>
-                </div>
-                
-                <div className="text-xs font-mono text-muted-foreground tracking-widest uppercase">
-                    System Auth // v2.0
                 </div>
             </div>
 
