@@ -1,0 +1,6 @@
+node_modules/
+.next/
+.env
+
+venv/
+archive/backend_fastapi_backup/venv/

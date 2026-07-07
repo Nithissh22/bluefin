@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  password  String
+  role      String     @default("CLIENT")
+  status    String     @default("ACTIVE")
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders            Order[]             @relation("ClientOrders")
+  assignedOrders    Order[]             @relation("StaffAssignedOrders")
+  NotificationLog   NotificationLog[]
+  auditLogs         AuditLog[]
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  category    String
+  unit        String   @default("unit")
+  price       Float
+  stock       Int      @default(0)
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id               String      @id @default(uuid())
+  clientId         String
+  assignedStaffId  String?
+  status           String @default("PENDING")
+  totalAmount      Float
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt // Used for optimistic locking
+
+  client           User        @relation("ClientOrders", fields: [clientId], references: [id])
+  assignedStaff    User?       @relation("StaffAssignedOrders", fields: [assignedStaffId], references: [id])
+  items            OrderItem[]
+  statusHistory    OrderStatusHistory[]
+}
+
+model OrderItem {
+  id             String  @id @default(uuid())
+  orderId        String
+  productId      String
+  quantity       Int
+  priceAtOrder   Float
+
+  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product @relation(fields: [productId], references: [id])
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(uuid())
+  orderId   String
+  status    String
+  notes     String?
+  changedBy String // User ID of who made the change
+  createdAt DateTime    @default(now())
+
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model NotificationLog {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // 'WHATSAPP' or 'EMAIL'
+  message     String
+  status      String   // 'SENT', 'FAILED'
+  orderId     String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  details   String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
