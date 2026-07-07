@@ -56,29 +56,29 @@
   --popover: #FFFFFF;
   --popover-foreground: #0F1B2D;
   
-  /* Primary: Navy */
-  --primary: #1F3A5F; 
+  /* Primary: Clinical Medical Blue */
+  --primary: #0265DC; 
   --primary-foreground: #FFFFFF;
   
   /* Secondary/Muted */
-  --muted: #F3F4F6;
-  --muted-foreground: #5B6B7D;
+  --muted: #F0F4F8;
+  --muted-foreground: #64748B;
   
-  /* Accent: Sage Teal */
-  --accent: #4A7A6C;
+  /* Accent: Sterile Teal */
+  --accent: #0D9488;
   --accent-foreground: #FFFFFF;
   
   /* States */
   --destructive: #EF4444; 
   --destructive-foreground: #FFFFFF;
   
-  --success: #4A7A6C;
+  --success: #10B981;
   --success-foreground: #FFFFFF;
   
   /* Borders & Inputs */
-  --border: #E4E7EB; 
-  --input: #E4E7EB;
-  --ring: #B08B4F; /* Brass focus ring */
+  --border: #E2E8F0; 
+  --input: #E2E8F0;
+  --ring: #0265DC; /* Blue focus ring */
   
   --radius: 0.5rem;
 }
